@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "SEO Task Clicker - Auto Runner",
+  "version": "2.0",
+  "description": "Automatically processes SEO tasks continuously with Start/Stop controls",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://seo-task.com/*",
+    "https://*.youtube.com/*",
+    "https://liteshortvideos.blogspot.com/*",
+    "https://googleads.g.doubleclick.net/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.youtube.com/*",
+        "https://liteshortvideos.blogspot.com/*"
+      ],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ]
+}

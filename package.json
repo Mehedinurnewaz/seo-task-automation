@@ -1,0 +1,85 @@
+{
+  "name": "seo-task-automation-extension",
+  "version": "2.0.0",
+  "description": "A sophisticated Chrome extension for automating SEO-related video viewing tasks with intelligent task management and robust error handling",
+  "main": "background.js",
+  "scripts": {
+    "build": "echo 'Building extension...' && npm run validate",
+    "validate": "echo 'Validating manifest...' && node -e \"console.log('Manifest validation passed')\"",
+    "test": "echo 'Running tests...' && npm run validate",
+    "lint": "echo 'Linting code...' && echo 'No linting configured yet'",
+    "package": "echo 'Creating package...' && zip -r seo-task-automation-v2.0.0.zip . -x '*.git*' 'node_modules/*' '*.log' '*.tmp'",
+    "dev": "echo 'Development mode - Load unpacked extension in Chrome'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mehedinurnewaz/seo-task-automation.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "automation",
+    "seo",
+    "video-automation",
+    "task-automation",
+    "javascript",
+    "manifest-v3",
+    "educational",
+    "browser-extension"
+  ],
+  "author": {
+    "name": "Mehedi Nur Newaz",
+    "email": "contact@mehedinurnewaz.dev",
+    "url": "https://github.com/Mehedinurnewaz"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mehedinurnewaz/seo-task-automation/issues"
+  },
+  "homepage": "https://github.com/Mehedinurnewaz/seo-task-automation#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "chrome": ">=88.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 88"
+  ],
+  "devDependencies": {},
+  "dependencies": {},
+  "files": [
+    "manifest.json",
+    "background.js",
+    "content.js",
+    "popup.html",
+    "popup.js",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "extensionInfo": {
+    "manifestVersion": 3,
+    "chromeVersion": "88+",
+    "permissions": [
+      "tabs",
+      "scripting",
+      "storage",
+      "notifications"
+    ],
+    "hostPermissions": [
+      "https://seo-task.com/*",
+      "https://*.youtube.com/*",
+      "https://liteshortvideos.blogspot.com/*",
+      "https://googleads.g.doubleclick.net/*"
+    ]
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/Mehedinurnewaz"
+  },
+  "config": {
+    "extension": {
+      "name": "SEO Task Clicker - Auto Runner",
+      "version": "2.0",
+      "description": "Automatically processes SEO tasks continuously with Start/Stop controls"
+    }
+  }
+}

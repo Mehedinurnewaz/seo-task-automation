@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      width: 300px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    h1 {
+      font-size: 18px;
+      margin: 0 0 20px 0;
+      color: #333;
+      text-align: center;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #startBtn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    #startBtn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    #startBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    #stopBtn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+    }
+    
+    #stopBtn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+    }
+    
+    #stopBtn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      background: #f7f8fa;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .status-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    
+    .status-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .status-value.running {
+      color: #10b981;
+    }
+    
+    .status-value.stopped {
+      color: #ef4444;
+    }
+    
+    .task-counter {
+      background: #f7f8fa;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .task-counter-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    
+    .task-counter-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .info {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    
+    .running-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      margin-left: 8px;
+      animation: pulse 2s infinite;
+    }
+    
+    /* Developer Branding Styles */
+    .developer-section {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 2px solid #e5e7eb;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 8px;
+      padding: 15px;
+    }
+    
+    .developer-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .developer-avatar {
+      font-size: 24px;
+      margin-right: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .developer-info {
+      flex: 1;
+    }
+    
+    .developer-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+    
+    .developer-title {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .social-link.github {
+      background: linear-gradient(135deg, #24292e 0%, #1a1e22 100%);
+    }
+    
+    .social-link.linkedin {
+      background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+    }
+    
+    .social-link.facebook {
+      background: linear-gradient(135deg, #1877f2 0%, #0d5dbf 100%);
+    }
+    
+    .social-link.telegram {
+      background: linear-gradient(135deg, #0088cc 0%, #006699 100%);
+    }
+    
+    .social-icon {
+      font-size: 16px;
+      color: white;
+      z-index: 2;
+    }
+    
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .social-link:hover::before {
+      left: 100%;
+    }
+    
+    .version-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 6px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+    
+    .version-label {
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    
+    .version-number {
+      font-size: 11px;
+      font-weight: 700;
+      color: #667eea;
+      background: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+    
+    /* Hover effects for developer section */
+    .developer-section:hover {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 SEO Task Clicker</h1>
+    
+    <div class="status">
+      <div class="status-label">স্ট্যাটাস</div>
+      <div class="status-value" id="status">
+        <span id="statusText">Stopped</span>
+        <span id="runningIndicator"></span>
+      </div>
+    </div>
+    
+    <div class="button-group">
+      <button id="startBtn">▶️ Start</button>
+      <button id="stopBtn" disabled>⏹️ Stop</button>
+    </div>
+    
+    <div class="task-counter">
+      <div class="task-counter-label">সম্পন্ন টাস্ক</div>
+      <div class="task-counter-value" id="taskCount">0</div>
+    </div>
+    
+    <div class="info">
+      Extension টি চালু থাকলে স্বয়ংক্রিয়ভাবে টাস্ক করতে থাকবে
+    </div>
+    
+    <!-- Developer Branding Section -->
+    <div class="developer-section">
+      <div class="developer-header">
+        <div class="developer-avatar">👨‍💻</div>
+        <div class="developer-info">
+          <div class="developer-name">Mehedi Nur Newaz</div>
+          <div class="developer-title">Full Stack Developer</div>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="#" id="githubLink" class="social-link github" title="GitHub Profile">
+          <span class="social-icon">🐙</span>
+        </a>
+        <a href="#" id="linkedinLink" class="social-link linkedin" title="LinkedIn Profile">
+          <span class="social-icon">💼</span>
+        </a>
+        <a href="#" id="facebookLink" class="social-link facebook" title="Facebook Profile">
+          <span class="social-icon">📘</span>
+        </a>
+        <a href="#" id="telegramLink" class="social-link telegram" title="Telegram Contact">
+          <span class="social-icon">✈️</span>
+        </a>
+      </div>
+      
+      <div class="version-info">
+        <span class="version-label">Version</span>
+        <span class="version-number">2.0.0</span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
