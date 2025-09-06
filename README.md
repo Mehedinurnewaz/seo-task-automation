@@ -2,6 +2,9 @@
 
 A sophisticated Chrome extension designed for automating SEO-related video viewing tasks with intelligent task management and robust error handling.
 
+## How to use..
+https://github.com/user-attachments/assets/ff618c64-cef3-4e92-bf91-d8bef50e7043
+
 ## 🚀 Features
 
 ### Core Functionality
